@@ -58,11 +58,69 @@ product_sales = (
     .sort_values(ascending=False)
 )
 
-st.subheader("Product Performance")
-st.bar_chart(product_sales)
+# st.subheader("Product Performance")
+# st.bar_chart(product_sales)
 
 
 # matplotlib ka professional chart
+fig, ax = plt.subplots(figsize=(15,5))
+
+ax.bar(
+    product_sales.index,
+    product_sales.values
+)
+
+ax.set_title("Revenue by Product")
+# ax.set_xlable("Product")
+# ax.set_ylable("Revenue (₹)")
+plt.xticks(rotation=30)
+st.pyplot(fig)
+
+# sales analysis by region
+
+region_sales = (
+    df.groupby("region")["revenue"]
+    .sum()
+    .sort_values(ascending=False)
+)
+
+st.subheader("🌍 Regional Performance")
+
+
+fig, ax = plt.subplots(figsize=(15,5))
+
+ax.bar(
+    region_sales.index,
+    region_sales.values
+)
+ax.set_title("Revenue by Region")
+# ax.set_xlable("Product")
+# ax.set_ylable("Revenue (₹)")
+
+st.pyplot(fig)
+
+
+# Region Pie Chart
+
+fig,ax = plt.subplots()
+
+ax.pie(
+
+    region_sales.values,
+    labels=region_sales.index,
+    autopct="%1.1f%%",
+    startangle=90
+
+)
+
+st.pyplot(fig)
+
+
+
+
+
+
+
 
 
 
