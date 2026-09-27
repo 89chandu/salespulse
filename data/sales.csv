@@ -1,0 +1,16 @@
+date,product,category,region,quantity,price,payment_method
+2026-09-01,Laptop Stand,Electronics,North,2,1500,UPI
+2026-09-02,Keyboard,Electronics,West,3,1200,Card
+2026-09-03,Mouse,Electronics,South,5,800,UPI
+2026-09-04,Monitor,Electronics,North,2,12000,Card
+2026-09-05,Laptop Stand,Electronics,West,4,1500,Cash
+2026-09-06,Keyboard,Electronics,South,6,1200,UPI
+2026-09-07,Mouse,Electronics,North,8,800,Card
+2026-09-08,Monitor,Electronics,West,1,12000,UPI
+2026-09-09,Laptop Stand,Electronics,South,3,1500,Cash
+2026-09-10,Keyboard,Electronics,North,5,1200,UPI
+2026-09-11,Mouse,Electronics,West,7,800,Card
+2026-09-12,Monitor,Electronics,South,2,12000,UPI
+2026-09-13,Laptop Stand,Electronics,North,5,1500,Card
+2026-09-14,Keyboard,Electronics,West,4,1200,Cash
+2026-09-15,Mouse,Electronics,South,10,800,UPI
