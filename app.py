@@ -100,20 +100,55 @@ ax.set_title("Revenue by Region")
 st.pyplot(fig)
 
 
-# Region Pie Chart
 
-fig,ax = plt.subplots()
 
-ax.pie(
+# Payment analysis
 
-    region_sales.values,
-    labels=region_sales.index,
-    autopct="%1.1f%%",
-    startangle=90
-
+payment_sales = (
+    df.groupby("payment_method")["revenue"]
+    .sum()
+    .sort_values(ascending=False)
 )
 
-st.pyplot(fig)
+st.subheader("Revenue by Payment method")
+st.bar_chart(payment_sales)
+
+col1 , col2 = st.columns(2)
+
+# left
+
+with col1:
+    st.subheader("Product Revenue")
+
+    fig , ax = plt.subplots()
+
+    ax.bar(
+        product_sales.index,
+        product_sales.values
+    )
+
+    plt.xticks(rotation=30)
+    st.pyplot(fig)
+
+
+# right
+
+with col2:
+
+    # Region Pie Chart
+
+    fig,ax = plt.subplots()
+
+    ax.pie(
+
+        region_sales.values,
+        labels=region_sales.index,
+        autopct="%1.1f%%",
+        startangle=90
+
+    )
+
+    st.pyplot(fig)
 
 
 
