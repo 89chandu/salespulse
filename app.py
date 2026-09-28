@@ -150,6 +150,53 @@ with col2:
 
     st.pyplot(fig)
 
+#   Daily revenue calculate
+
+df["date"]  = pd.to_datetime(df["date"])
+
+df["revenue"] = df["quantity"] * df["price"]
+
+daily_sales = (
+    df.groupby("date")["revenue"]
+    .sum()
+    .sort_index()
+)
+# line chart
+
+fig , ax = plt.subplots()
+
+ax.plot(
+    daily_sales.index,
+    daily_sales.values,
+    marker="o"
+)
+
+plt.xticks(rotation=90)
+
+st.pyplot(fig)
+
+
+# monthly sales
+
+monthly_sales = (
+    df.groupby(df["date"].dt.to_period("M"))["revenue"]
+    .sum()
+)
+
+# print
+
+fig , ax = plt.subplots()
+
+ax.plot(
+    monthly_sales.index.astype(str),
+    monthly_sales.values,
+    marker="o"
+)
+
+plt.xticks(rotation=60)
+
+st.pyplot(fig)
+
 
 
 
