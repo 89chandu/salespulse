@@ -50,10 +50,72 @@ col4.metric(
 )
 
 
+# yaha paste
+
+# day 4 : interactive filters
+
+# Region Filter 
+
+regions = ["All"] + sorted(df["region"].unique())
+select_region = st.selectbox(
+    "Select Region",
+    regions
+)
+
+# product filter 
+
+
+products = ["All"] + sorted(df["product"].unique())
+
+selected_product = st.selectbox(
+    "Select Product",
+    products
+)
+
+# payment filter
+
+payments = ["All"] + sorted(df["payment_method"].unique())
+
+selected_payment = st.selectbox(
+    "Select Payment",
+    payments
+)
+
+
+# ab actual filter 
+
+filtered_df = df.copy()
+
+# region
+if select_region != "All":
+    filtered_df = filtered_df[
+        filtered_df["region"] == select_region
+    ]
+# Product
+if select_region != "All":
+    filtered_df = filtered_df[
+        filtered_df["product"] == selected_product
+    ]
+# Payment
+if select_region != "All":
+    filtered_df = filtered_df[
+        filtered_df["payment_method"] == selected_payment
+    ]    
+
+
+total_revenue = np.sum(df["revenue"])    
+
+total_revenue = np.sum(filtered_df["revenue"])
+total_orders = len(filtered_df)
+average_order = np.mean(filtered_df["revenue"])
+highest_order = np.max(filtered_df["revenue"])
+
+
 # konsa product sabs  jyada revenue lekr aaya hai 
 
 product_sales = (
-    df.groupby("product")["revenue"]
+    filtered_df
+    .groupby("product")["revenue"]
     .sum()
     .sort_values(ascending=False)
 )
@@ -79,7 +141,8 @@ st.pyplot(fig)
 # sales analysis by region
 
 region_sales = (
-    df.groupby("region")["revenue"]
+    filtered_df
+    .groupby("region")["revenue"]
     .sum()
     .sort_values(ascending=False)
 )
@@ -105,7 +168,8 @@ st.pyplot(fig)
 # Payment analysis
 
 payment_sales = (
-    df.groupby("payment_method")["revenue"]
+    filtered_df
+    .groupby("payment_method")["revenue"]
     .sum()
     .sort_values(ascending=False)
 )
@@ -137,16 +201,21 @@ with col2:
 
     # Region Pie Chart
 
-    fig,ax = plt.subplots()
 
-    ax.pie(
+    if region_sales.sum() > 0:
 
-        region_sales.values,
-        labels=region_sales.index,
-        autopct="%1.1f%%",
-        startangle=90
+        fig,ax = plt.subplots()
 
-    )
+        ax.pie(
+
+            region_sales.values,
+            labels=region_sales.index,
+            autopct="%1.1f%%",
+            startangle=90
+
+        )
+    else:
+        st.warning("No sales available for the selected filter")    
 
     st.pyplot(fig)
 
@@ -196,6 +265,50 @@ ax.plot(
 plt.xticks(rotation=60)
 
 st.pyplot(fig)
+
+# day3
+
+# Daily revenue
+# line chart
+# growth
+# best sales day
+
+# date range filter
+
+df["date"] = pd.to_datetime(df["date"])
+
+start_date = st.date_input(
+    "Start Date",
+    df["date"].min().date()
+)
+
+end_date = st.date_input(
+    "End Date",
+    df["date"].max().date()
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
